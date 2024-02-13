@@ -1,5 +1,5 @@
 import Header from "./components/Header/Header";
-import Weather from "./components/weather/Weather";
+import Weather from "./components/weather/WeatherBoard";
 
 function App() {
   return (
