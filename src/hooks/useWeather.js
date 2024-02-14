@@ -1,7 +1,7 @@
 import { useEffect, useState, useContext } from "react"
 import { LocationContext } from "../context";
 
-const useWeather = (lat, long) => {
+const useWeather = () => {
     const [weatherData, setWeatherData] = useState({
         location: "",
         climate: "",
@@ -18,11 +18,11 @@ const useWeather = (lat, long) => {
     const [loading, setLoading] = useState({
         state: false,
         message: "",
-    });
+    })
 
     const [error, setError] = useState(null);
     const { selectedLocation } = useContext(LocationContext);
-    console.log(selectedLocation);
+
 
     // const { selectedLocation } = useContext(LocationContext);
 
@@ -43,7 +43,7 @@ const useWeather = (lat, long) => {
             }
             const data = await response.json();
 
-            // const data = await response.json();
+
             const updatedWeatherData = {
                 ...weatherData,
                 location: data?.name,
@@ -60,10 +60,14 @@ const useWeather = (lat, long) => {
             };
             setWeatherData(updatedWeatherData);
         } catch (err) {
-            console.error(err);
+
             setError(err);
         } finally {
-            setLoading({ ...loading, state: false, message: "" });
+            setLoading({
+                ...loading,
+                state: false,
+                message: "",
+            });
         }
     };
 
@@ -71,10 +75,14 @@ const useWeather = (lat, long) => {
         setLoading({
             ...loading,
             state: true,
-            message: "Finding Location....",
+            message: "Finding location...",
         });
+
         if (selectedLocation.latitude && selectedLocation.longitude) {
-            fetchWeatherData(selectedLocation.latitude, selectedLocation.longitude)
+            fetchWeatherData(
+                selectedLocation.latitude,
+                selectedLocation.longitude
+            );
         } else {
             navigator.geolocation.getCurrentPosition(function (position) {
                 fetchWeatherData(
