@@ -4,16 +4,17 @@ import { LocationContext } from "../../context";
 import { getLocationByName } from "../../data/location-data";
 
 function Search() {
-  const { setSelectedLocation } = useContext(LocationContext);
   const [searchTerm, setSearchTerm] = useState("");
+  const { setSelectedLocation } = useContext(LocationContext);
 
-  const handleSubmit = (e) => {
+  function handleSubmit(e) {
     e.preventDefault();
     console.log(searchTerm);
+    console.log(getLocationByName);
     const fetchedLocation = getLocationByName(searchTerm);
-    console.log(fetchedLocation);
+    console.log("Fetched Location:", fetchedLocation); // Log fetched location data
     setSelectedLocation({ ...fetchedLocation });
-  };
+  }
   return (
     <form action="#" onSubmit={handleSubmit}>
       <div className="flex items-center space-x-2 py-2 px-3 group focus-within:bg-black/30 transition-all border-b border-white/50 focus-within:border-b-0 focus-within:rounded-md">

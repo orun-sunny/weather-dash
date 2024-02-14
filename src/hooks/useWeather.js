@@ -73,13 +73,20 @@ const useWeather = (lat, long) => {
             state: true,
             message: "Finding Location....",
         });
-        navigator.geolocation.getCurrentPosition(function (position) {
-            fetchWeatherData(
-                position.coords.latitude,
-                position.coords.longitude
-            );
-        });
-    }, []);
+        if (selectedLocation.latitude && selectedLocation.longitude) {
+            fetchWeatherData(selectedLocation.latitude, selectedLocation.longitude)
+        } else {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                fetchWeatherData(
+                    position.coords.latitude,
+                    position.coords.longitude
+                );
+            });
+        }
+    }, [selectedLocation.latitude, selectedLocation.longitude]);
+
+
+
     return {
         weatherData,
         error,
