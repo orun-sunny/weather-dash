@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
+import { LocationContext } from "../context";
 
 const useWeather = (lat, long) => {
     const [weatherData, setWeatherData] = useState({
@@ -20,6 +21,8 @@ const useWeather = (lat, long) => {
     });
 
     const [error, setError] = useState(null);
+    const { selectedLocation } = useContext(LocationContext);
+    console.log(selectedLocation);
 
     // const { selectedLocation } = useContext(LocationContext);
 
